@@ -17,7 +17,7 @@ import {
 
 const App = () => {
 	const dispatch = useDispatch();
-	const { clientWidth, clientHeight, isGameRunning, rightMomentum, isGameEnded } = useSelector(
+	const { clientWidth, clientHeight, isWeightFalling, rightMomentum, isGameEnded } = useSelector(
 		state => state.root,
 		shallowEqual,
 	);
@@ -61,10 +61,10 @@ const App = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!isGameRunning && clientHeight !== 0 && rightMomentum === 0) {
+		if (!isWeightFalling && clientHeight !== 0 && rightMomentum === 0) {
 			reset();
 		}
-	}, [isGameRunning, clientWidth]);
+	}, [isWeightFalling, clientWidth]);
 
 	const reset = () => {
 		dispatch(resetGame());

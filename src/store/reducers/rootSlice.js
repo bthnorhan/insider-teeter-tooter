@@ -5,8 +5,9 @@ const initialState = {
 	clientHeight: 0,
 	currentWeightLeft: 0,
 	currentWeightTop: 0,
-	isGameRunning: false,
+	isWeightFalling: false,
 	isGameEnded: false,
+	isGamePause: false,
 
 	leftWeights: [],
 	leftTotalWeight: 0,
@@ -29,8 +30,9 @@ export const rootSlice = createSlice({
 		moveLeft: state => {
 			if (
 				state.currentWeightLeft > state.clientWidth / 2 - 836 &&
-				state.isGameRunning &&
-				!state.isGameEnded
+				state.isWeightFalling &&
+				!state.isGameEnded &&
+				!state.isGamePause
 			) {
 				state.currentWeightLeft = state.currentWeightLeft - 152;
 			}
@@ -38,18 +40,19 @@ export const rootSlice = createSlice({
 		moveRight: state => {
 			if (
 				state.currentWeightLeft < state.clientWidth / 2 - 228 &&
-				state.isGameRunning &&
-				!state.isGameEnded
+				state.isWeightFalling &&
+				!state.isGameEnded &&
+				!state.isGamePause
 			) {
 				state.currentWeightLeft = state.currentWeightLeft + 152;
 			}
 		},
 		moveDown: state => {
-			if (state.isGameRunning && !state.isGameEnded) {
+			if (state.isWeightFalling && !state.isGameEnded && !state.isGamePause) {
 				if (state.currentWeightTop < state.clientHeight - 258) {
 					state.currentWeightTop = state.currentWeightTop + 2;
 				} else {
-					state.isGameRunning = false;
+					state.isWeightFalling = false;
 				}
 			}
 		},
@@ -70,8 +73,9 @@ export const rootSlice = createSlice({
 
 		resetGame: state => {
 			state.currentWeightLeft = state.clientWidth / 2 - 228;
-			state.isGameRunning = false;
+			state.isWeightFalling = false;
 			state.isGameEnded = false;
+			state.isGamePause = false;
 			state.leftWeights = [];
 			state.rightWeights = [];
 			state.leftTotalWeight = 0;
@@ -81,9 +85,13 @@ export const rootSlice = createSlice({
 		},
 
 		runGame: state => {
-			state.isGameRunning = true;
+			state.isWeightFalling = true;
 			state.currentWeightTop = 0;
 			state.currentWeightLeft = state.clientWidth / 2 - 228;
+		},
+
+		togglePause: state => {
+			state.isGamePause = !state.isGamePause;
 		},
 	},
 });
@@ -97,5 +105,6 @@ export const {
 	addWeightRight,
 	resetGame,
 	runGame,
+	togglePause,
 } = rootSlice.actions;
 export default rootSlice.reducer;

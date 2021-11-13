@@ -2,11 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { togglePause } from '../../store/reducers/rootSlice';
 
 export const ControlPanel = ({ resetGame = () => {}, addWeight = () => {} }) => {
-	const { leftTotalWeight, leftMomentum, rightTotalWeight, rightMomentum, isGameRunning } =
-		useSelector(state => state.root, shallowEqual);
+	const {
+		leftTotalWeight,
+		leftMomentum,
+		rightTotalWeight,
+		rightMomentum,
+		isWeightFalling,
+		isGamePause,
+	} = useSelector(state => state.root, shallowEqual);
+
+	const dispatch = useDispatch();
+
+	const pause = () => {
+		dispatch(togglePause());
+	};
 
 	return (
 		<div className='d-flex flex-row m-2 p-2 rounded bg-white'>
@@ -15,8 +28,15 @@ export const ControlPanel = ({ resetGame = () => {}, addWeight = () => {} }) => 
 				<span>Momentum - {leftMomentum} kg/m</span>
 			</div>
 			<div className='mx-auto'>
-				<Button variant='success' disabled={isGameRunning} onClick={addWeight}>
+				<Button
+					variant='success'
+					disabled={isWeightFalling || isGamePause}
+					onClick={addWeight}
+				>
 					Add New Weight
+				</Button>
+				<Button className='ms-2' variant='warning' onClick={pause}>
+					{isGamePause ? 'Continue' : 'Pause'}
 				</Button>
 				<Button className='ms-2' variant='danger' onClick={resetGame}>
 					Reset
