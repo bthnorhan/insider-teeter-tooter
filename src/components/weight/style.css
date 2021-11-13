@@ -1,0 +1,23 @@
+.weight-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	width: 152px;
+	height: 152px;
+}
+
+.weight-span {
+	font-weight: bold;
+	font-size: medium;
+	color: white;
+	text-align: center;
+}
+
+.weight-span-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+}

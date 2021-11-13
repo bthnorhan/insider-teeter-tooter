@@ -1,0 +1,14 @@
+.weight-area-wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 1672px;
+	height: calc(100vh - 106px);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -1,0 +1,22 @@
+.teeter-tooter-wrapper {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 106px;
+}
+
+.teeter-tooter-bar {
+	height: 10px;
+	width: 1520px;
+	background-color: #616161;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.teeter-tooter-triangle {
+	width: 96px;
+	height: 96px;
+	margin-left: auto;
+	margin-right: auto;
+}
